@@ -1,0 +1,82 @@
+<conversation>
+  <scene name="init">
+    <goto condition="!passed_n_test" sceneName="questionOne" />
+    <goto sceneName="root" />
+  </scene>
+  
+  <!-- Questions -->
+  <scene name="questionOne">
+    <setGameVar name="met_n" value="true" />
+    <line>
+      How many spires in our temporary shelter?
+      <option goto="wrongAnswer">One.</option>
+      <option goto="wrongAnswer">Two.</option>
+      <option goto="questionTwo">Three.</option>      
+    </line>
+  </scene>
+
+  <scene name="questionTwo">
+    <line>
+      How many moons between here and our sacred homeland?
+      <option goto="questionThree">One.</option>
+      <option goto="wrongAnswer">Two.</option>
+      <option goto="wrongAnswer">Three.</option>      
+    </line>
+  </scene>
+
+  <scene name="questionThree">
+    <line>
+      How many islands in the homeland bear our sign?
+      <option goto="wrongAnswer">Um ... one?</option>
+      <option goto="wrongAnswer">Um ... all of them?</option>
+      <option goto="questionSuccess" condition="learned_number_of_sacred_islands">Three.</option>      
+    </line>
+  </scene>
+
+  <scene name="wrongAnswer">
+    <line>No, no, you don't understand us. I can't go any further with you.</line>
+  </scene>
+
+  <scene name="questionSuccess" goto="root">
+    <setGameVar name="passed_n_test" value="true" />
+    <line>Yes. That is why we stay here now -- three spires for the three islands that bear the sign of the Return.</line>
+    <line>We reflect on the moon: a bright, white circle that looks the same here as it does in the Balloon Archipelago. Three spires, one moon, three islands.</line>
+    <line>One day, instead of looking down at clouds we will be looking down at water again. Instead of hunting seagulls, we will be fishing. We will mend our balloons and our culture.</line>
+  </scene>
+
+  <!-- Root -->
+  <scene name="root">
+    <line>
+      What can I teach you, $[player_name]?
+      <option goto="doYouHaveAnyCloth">Do you have any spare bits of cloth?</option>
+      <option goto="aboutTheReturn">I'd like learn about the Return.</option>      
+      <option goto="reflectOnTheMoon">I'd like learn to reflect on the moon.</option>
+      <option goto="goodbye">Nothing right now, thanks.</option>
+    </line>
+  </scene>
+
+  <!-- Teaching -->
+  <scene name="doYouHaveAnyCloth" goto="root">
+    <line>Ah, you have a balloon of your own and it needs repair? I am sorry, $[player_name], but this cloth is only for balloons from the Balloon Archipelago, not $[player_came_from].</line>
+  </scene>
+
+  <scene name="aboutTheReturn" goto="root">
+    <line>Our culture is in intermission, $[player_name], and only when all our people are back in the Balloon Archipelago can our story continue. Many of us left by choice, before the trouble started. Some of us were forced to leave.</line>
+    <line>One day, instead of looking down at clouds we will be looking down at water again. Instead of hunting seagulls, we will be fishing. We will mend our balloons and our culture.</line>
+  </scene>
+
+  <scene name="reflectOnTheMoon" goto="flyToTheMoon">
+    <line>Yes, I can teach you to reflect on the moon.</line>
+    <line>Look at the moon, $[player_name]. Let its light swell to permeate your field of vision.</line>
+  </scene>
+
+  <scene name="flyToTheMoon" meditateTo="TheMoon">
+    <line>Now, slowly, close your eyes.</line>
+  </scene>
+
+  <!-- Goodbye -->
+  <scene name="goodbye">
+    <line>Goodbye, $[player_name].</line>
+  </scene>
+  
+</conversation>

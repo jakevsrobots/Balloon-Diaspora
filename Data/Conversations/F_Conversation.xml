@@ -1,0 +1,68 @@
+<conversation>
+  <scene name="init">
+    <goto condition="!met_f" sceneName="intro" />
+    <goto condition="!heard_about_f" sceneName="intro" />
+    <goto condition="got_blanket_from_f" sceneName="alreadyGotBlanket" />
+    <goto sceneName="root" />
+  </scene>
+
+  <scene name="intro">
+    <setGameVar name="met_f" value="true" />    
+    <line>Go away!</line>
+  </scene>
+  
+  <scene name="root">
+    <line>
+      Well?
+      <option goto="whatAreYouDoing" condition="!f_likes_player" hideIfNotAvailable="true">What are you doing?</option>
+      <option goto="doYouHaveAnyCloth" condition="f_likes_player&!got_blanket_from_f">Do you have any spare bits of cloth?</option>
+    </line>
+  </scene>
+
+  <!-- Q & A -->
+  
+  <scene name="whatAreYouDoing">
+    <line>
+      What does it look like I'm doing?
+      <option goto="areYouFishing">Fishing.</option>
+      <option goto="areYouHuntingGulls" condition="learned_about_f_gulls_hunting">Hunting seagulls.</option>
+    </line>
+  </scene>
+
+  <scene name="areYouFishing">
+    <line>Fishing? At this altitude? Don't be ridiculous.</line>
+  </scene>
+  
+  <scene name="areYouHuntingGulls">
+    <line>
+      That's right, seagulls. I don't suppose they hunt seagulls $[player_came_from]. 
+      <option goto="yesGulls" condiiton="learned_about_gull_dish">Seagull salmon casserole is delicious.</option>
+      <option goto="noGulls">No, that's disgusting.</option>
+    </line>
+  </scene>
+
+  <scene name="noGulls">
+    <line>Disgusting! If you ever tasted a ... forget it; leave me alone!</line>
+  </scene>
+  
+  <scene name="yesGulls">
+    <setGameVar name="f_likes_player" value="true" />
+    <line>Seagull salmon casserole! A traditional Archipelago dish... Didn't know word had spread about seagull salmon casserole as far as $[player_came_from].</line>
+    <line>Well, you seem like a friendly sort of person. If there's something you need just ask.</line>
+  </scene>
+
+  <!-- Ask for cloth -->
+  
+  <scene name="doYouHaveAnyCloth">
+    <setGameVar name="got_blanket_from_f" value="true" />
+    <setGameVar name="number_of_balloon_patches" value="+1" />
+    <line>Sure, I could spare a bit of blanket. Stay warm, $[player_name].</line>
+  </scene>
+
+  <!-- Already got blanket -->
+  
+  <scene name="alreadyGotBlanket">
+    <line>Thought I felt a nibble there ... damn pigeons.</line>
+  </scene>
+  
+</conversation>

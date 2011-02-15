@@ -1,0 +1,73 @@
+<conversation>
+  <scene name="init">
+    <goto condition="!met_t" sceneName="intro" />
+    <goto sceneName="root" />
+  </scene>
+
+  <!-- Intro -->
+  <scene name="intro" goto="interviewQuestion1">
+    <setGameVar name="met_t" value="true" />
+    <line>Greetings! I am called T. I saw you arrive in that striped balloon. Marvelous specimen.</line>
+    <line>I am presently engaged in rigorous scholarship: combing the scriptures of the Three-Spire Sect. These sacred manuscripts are not allowed to leave the settlement, so I must read them here by lamplight.</line>
+  </scene>
+
+  <scene name="interviewQuestion1">
+    <line>
+      Do your people have a sacred text $[player_came_from]?
+      <option goto="interviewQuestion2">We sing and listen to sacred songs.</option>
+      <option goto="interviewQuestion2">We etch and regard sacred engravings.</option>
+      <option goto="interviewQuestion2">It's private.</option>
+    </line>
+  </scene>
+
+  <scene name="interviewQuestion2">
+    <line>
+      Naturally. Every culture has its own practices; its own relationship to the divine.
+      <option goto="endInterview">I'm surprised we even speak the same language.</option>
+      <option goto="endInterview">It's not so different, really, just details.</option>
+    </line>
+  </scene>
+
+  <scene name="endInterview" goto="root">
+    <line>Always enlightening to engage a foreign mind.</line>
+  </scene>
+
+  <!-- Root -->
+  <scene name="root">
+    <line>
+      Well, $[player_name], how do you do?
+      <option goto="aboutJob">What do you do here?</option>
+      <option goto="aboutThreeSpireSettlement">What can you tell me about this place?</option>
+      <option goto="aboutScripture">What is that you're holding?</option>
+      <option goto="goodbye">Goodbye</option>
+    </line>
+  </scene>
+
+  <!-- About job -->
+  <scene name="aboutJob" goto="root">
+    <line>I am a Junior Field Archivist for the Old Institution, specializing in poetry. I am presently engaged in a research project, combing the scriptures of the Three-Spire Sect.</line>
+  </scene>
+  
+  <!-- About Three-Spire Settlement -->
+  <scene name="aboutThreeSpireSettlement" goto="root">
+    <setGameVar name="learned_number_of_sacred_islands" value="true" />
+    <line>Three natural spires climbing out of the landscape. Here, where they break through the clouds, the Three-Spire Sect has established sacred ground for their spiritual pursuits.</line>
+    <line>They chose this place because it reminds them of the three sacred islands in the Balloon Archipelago, where their sect originated. The cliffsides on these three islands are marked with their sign: three parallel, vertical lines carved into the rock.</line>
+  </scene>
+  
+  <!-- About scripture -->
+  <scene name="aboutScripture" goto="root">
+    <setGameVar name="got_report_from_t" value="true" />
+
+    <line>This is one of many volumes of local scripture, preserved here by the Three-Spire Sect.</line>
+    <line>I am combing through these sacred texts, searching for the origin of contemporary Three-Spire poetry.</line>
+    <line>Most believe that this distinctive form of poetry evolved from an earlier poetics common to the Balloon Archipelago. I am investigating the possibility that its origin is in Three-Spire scripture and that it evolved here.</line>
+    <line>This is quite a controversial claim to make ... we must be rigorous. I have recently discovered a handful of poems that read like prayer, and several prayers that read like poetry. It seems that this line of inquiry will pay off!</line>
+  </scene>
+
+  <!-- goodbye -->
+  <scene name="goodbye">
+    <line>Glad we had this conversation, $[player_name].</line>
+  </scene>
+  
+</conversation>

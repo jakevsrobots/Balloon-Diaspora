@@ -1,0 +1,455 @@
+<conversation>
+  <scene name="init">
+    <goto condition="!met_silas" sceneName="intro" />
+    <goto condition="current_location=EndGameValley" sceneName="endGame" />
+    <goto condition="got_acorns_from_m&!delivered_acorns" sceneName="acornDelivery" />
+    <goto sceneName="checkPatchCount" />
+  </scene>
+
+  <!-- Root -->
+  <scene name="root">
+    <line>
+      What's on your mind, $[player_name]?
+      <option goto="checkBalloonStatus">How is our progress?</option>
+      <option goto="destinations">Where can we fly from here?</option>
+      <option goto="chatWithSilas">Do you mind if I ask a personal question?</option>
+      <option goto="tellSilasAboutMap" condition="learned_about_hidden_map&!discovered_map" hideIfNotAvailable="true">I have a message from A.</option>
+      <option goto="goodbye">Goodbye</option>      
+    </line>
+  </scene>
+
+  <!-- Goodbye -->
+  <scene name="goodbye">
+    <line>I'll just sit and think for a spell.</line>
+  </scene>
+
+  <!-- Destinations -->
+  <scene name="destinations">
+    <goto condition="current_location=Valley" sceneName="valleyDestinations" />
+    <goto condition="current_location=ArchivesOfTheOldInstitution" sceneName="archivesDestinations" />
+    <goto condition="current_location=ThreeSpireSettlement" sceneName="threeSpireDestinations" />
+    <goto condition="current_location=OakSettlement" sceneName="oakSettlementDestinations" />
+    <goto condition="current_location=IceFactorySettlement" sceneName="iceFactorySettlementDestinations" />    
+  </scene>
+
+  <scene name="valleyDestinations">
+    <line>
+      From here, we can reach the Archives of the Old Institution. That's about it.
+      <option goto="flyToTheArchivesOfTheOldInstitution">Let's head to the Archives.</option>
+      <option goto="root">Nevermind.</option>
+    </line>
+  </scene>
+
+  <scene name="archivesDestinations">
+    <line>From here, we can reach the Oak Settlement, the Three-Spire Settlement or the Ice Factory Settlement.</line>
+    <line>So, where to?
+      <option goto="flyToTheOakSettlement">Let's try the Oak Settlement.</option>
+      <option goto="flyToTheThreeSpireSettlement">Three-Spire Settlement it is.</option>      
+      <option goto="flyToTheIceFactorySettlement">How about the Ice Factory Settlement.</option>
+      <option goto="root">Nevermind.</option>
+    </line>
+  </scene>
+
+  <scene name="threeSpireDestinations">
+    <line>From here, we can reach the Archives of the Old Institution, the Oak Settlement, or the Ice Factory Settlement</line>
+    <line>So, where to?
+      <option goto="flyToTheArchivesOfTheOldInstitution">Let's head to the Archives.</option>
+      <option goto="flyToTheOakSettlement">Let's try the Oak Settlement.</option>
+      <option goto="flyToTheIceFactorySettlement">How about the Ice Factory Settlement.</option>
+      <option goto="root">Nevermind.</option>
+    </line>
+  </scene>
+
+  <scene name="oakSettlementDestinations">
+    <line>From here, we can reach the Archives of the Old Institution, the Three-Spire Settlement, or the Ice Factory Settlement</line>
+    <line>So, where to?
+      <option goto="flyToTheArchivesOfTheOldInstitution">Let's head to the Archives.</option>
+      <option goto="flyToTheThreeSpireSettlement">Three-Spire Settlement it is.</option>
+      <option goto="flyToTheIceFactorySettlement">How about the Ice Factory Settlement.</option>
+      <option goto="root">Nevermind.</option>
+    </line>
+  </scene>
+  
+  <scene name="iceFactorySettlementDestinations">
+    <line>From here, we can reach the Archives of the Old Institution, the Three-Spire Settlement, or the Oak Settlement</line>
+    <line>So, where to?
+      <option goto="flyToTheArchivesOfTheOldInstitution">Let's head to the Archives.</option>
+      <option goto="flyToTheThreeSpireSettlement">Three-Spire Settlement it is.</option>
+      <option goto="flyToTheOakSettlement">Let's try the Oak Settlement.</option>      
+      <option goto="root">Nevermind.</option>
+    </line>
+  </scene>
+  
+  <scene name="flyToTheArchivesOfTheOldInstitution" flyTo="ArchivesOfTheOldInstitution">
+    <line>Ok, hop on board.</line>
+  </scene>
+
+  <scene name="flyToTheOakSettlement" flyTo="OakSettlement">
+    <line>Here we go.</line>
+  </scene>
+
+  <scene name="flyToTheThreeSpireSettlement" flyTo="ThreeSpireSettlement">
+    <line>Watch your arms.</line>
+  </scene>
+
+  <scene name="flyToTheIceFactorySettlement" flyTo="IceFactorySettlement">
+    <line>Great, just help me unhitch the balloon.</line>
+  </scene>
+
+  <!-- Status -->
+  <scene name="checkBalloonStatus" goto="checkPatchCount">
+    <line>Ok, we need 6 patches to fix that balloon up, and right now we've got $[number_of_balloon_patches].</line>
+  </scene>
+
+  <scene name="checkPatchCount">
+    <goto condition="number_of_balloon_patches=6" sceneName="gotAllPatches" />
+    <goto sceneName="root" />
+  </scene>
+  
+  <!-- Chat -->
+  <scene name="chatWithSilas">
+    <line>
+      Fire away.
+      <option goto="aboutCurrentLocation">What do you think of this place?</option>
+      <option goto="aboutFamily">I'd like to hear more about your family.</option>
+      <option goto="root">That's all.</option>
+    </line>
+  </scene>
+
+  <!-- About current location -->
+  <scene name="aboutCurrentLocation">
+    <goto condition="current_location=Valley" sceneName="aboutValley" />
+    <goto condition="current_location=ArchivesOfTheOldInstitution" sceneName="aboutArchives" />
+    <goto condition="current_location=OakSettlement" sceneName="aboutOakSettlement" />
+    <goto condition="current_location=IceFactorySettlement" sceneName="aboutIceFactorySettlement" />
+    <goto condition="current_location=ThreeSpireSettlement" sceneName="aboutThreeSpireSettlement" />        
+  </scene>
+
+  <scene name="aboutValley" goto="root">
+    <line>I was born here. It's dark and dry, except for the fishing holes. Sometimes I think ... well, an archipelago is just a chain of islands, and this valley is just a bunch of hills.</line>
+    <line>What I mean is ... if this valley flooded, it would be kinda like the Balloon Archipelago, you know what I mean? Except I guess for the balloons. It'd just be mine ...</line>
+    <line>... and yours, maybe.</line>
+  </scene>
+
+  <scene name="aboutArchives" goto="root">
+    <line>It's always like this; damp and cold. I guess most folks only come here to find old records in the archives. Or to work, like my brother R.</line>
+    <line>
+      Do they have a cultural archive $[player_came_from]?
+      <option goto="aboutArchivesPlayerHomeland">Yes</option>      
+      <option goto="aboutArchivesPlayerHomeland">No</option>
+    </line>
+  </scene>
+
+  <scene name="aboutArchivesPlayerHomeland">
+    <line>
+      Yeah. How do you feel about that?
+      <option goto="aboutArchivesPlayerHomelandFeeling">It's probably for the best</option>      
+      <option goto="aboutArchivesPlayerHomelandFeeling">It's a waste.</option>
+      <option goto="aboutArchivesPlayerHomelandFeeling">Doesn't really affect me.</option>      
+    </line>
+  </scene>
+
+  <scene name="aboutArchivesPlayerHomelandFeeling" goto="chatWithSilas">
+    <line>I can see that point of view, $[player_name]. For my part, I take some comfort knowing this place exists. Lately, I don't have cause to do much digging in the past, but who knows?</line>
+  </scene>
+
+  <scene name="aboutOakSettlement" goto="chatWithSilas">
+    <line>It's nice here, but cold. My ma works here, studying the oaks.</line>
+  </scene>
+  
+  <scene name="aboutIceFactorySettlement" goto="chatWithSilas">
+    <line>Yeah, it's big business alright. I never was the industrial type myself. But the life of an ice deliveryman sounds kinda romantic.</line>
+  </scene>
+  
+  <scene name="aboutThreeSpireSettlement" goto="chatWithSilas">
+    <line>It's sacred ground I guess, $[player_name]. I don't really go in for this kind of thing, but I won't deny it's awfully important to some folks. My pa spent some time here, studying and meditating.</line>
+  </scene>
+  
+  <!-- About family -->
+  <scene name="aboutFamily">
+    <line>
+      I tell you what, family is a hot topic in these parts. But you ask whatever you like, $[player_name].
+      <option goto="aboutFamilyR">Tell me about your brother, R.</option>
+      <option goto="aboutFamilyM">Tell me about your mother, M.</option>
+      <option goto="aboutFamilyA">Tell me about your father, A.</option>
+      <option goto="chatWithSilas">Let's change the subject.</option>
+    </line>
+  </scene>
+
+  <scene name="aboutFamilyR" goto="aboutFamily">
+    <line>Well, $[player_name], to be honest R. and I don't talk much. He's got his work and I'm happy for him on that account. He always had a kinda academic disposition if you follow me.</line>
+    <line>He figured out pretty early on that he wanted to work for the Old Institution in some fashion or another. My folks approved. After all, they grew up in the Balloon Archipelago so they had a kinda interest in keeping the culture alive.</line>
+    <line>When I was small, I thought I'd do like him and become a clerk or a translator. Wasn't for me, though ... wasn't my thing.</line>
+  </scene>
+  
+  <scene name="aboutFamilyM" goto="aboutFamily">
+    <line>Oh, ma's a smart lady. You know she pretty much wrote the book on oak trees. Well, what I mean is, she knows a lot about them.</line>
+    <line>I should visit her more out at the Oak Settlement; it's just I have all this fishing. Besides, she's pretty busy.</line>
+  </scene>
+
+  <scene name="aboutFamilyA" goto="aboutFamily">
+    <line>$[player_name], I don't know what it's like in your family but my pa is a real far out kind of guy. You never know where he's going next. Not to say he didn't take care of us, now, but ...</line>
+    <line>Well, he's got his own compass, $[player_name]. I admire it really. Damned if I know where he is right now, though.</line>
+  </scene>
+  
+  <scene name="aboutFamilyR" goto="aboutFamily">
+    <line>Well, $[player_name], to be honest R. and I don't talk much. He's got his work and I'm happy for him on that account. He always had a kinda academic disposition if you follow me.</line>
+    <line>He figured out pretty early on that he wanted to work for the Old Institution in some fashion or another. My folks approved. After all, they grew up in the Balloon Archipelago so they had a kinda interest in keeping the culture alive.</line>
+    <line>When I was small, I thought I'd do like him and become a clerk or a translator. Wasn't for me, though ... wasn't my thing.</line>
+  </scene>
+  
+  <!-- First meeting -->
+  <scene name="intro">
+    <line>Howdy. Lovely night, isn't it? I was just out hunting worms for a fishing trip.</line>
+    <line>
+      Say, was that your balloon that came down over yonder?
+      <option goto="yesOwnsBalloon">Yes</option>
+      <option goto="noOwnsBalloon">No</option>
+    </line>
+  </scene>
+  <scene name="yesOwnsBalloon" goto="introBalloonRepair">
+    <line>Your balloon, eh? Fine looking thing.</line>
+  </scene>
+  <scene name="noOwnsBalloon" goto="introBalloonRepair">
+    <line>It looks like a nice balloon though, doesn't it?</line>
+  </scene>
+  <scene name="introBalloonRepair" goto="playerInterviewQuestionOne">
+    <line>I reckon it can be salvaged. Just needs some patching and you could fly it right out of here; half a dozen or so should do. I'd even let you use my sewing machine.</line>
+    <line>But where are you going to get all those patches, eh?</line>
+    <line>I'd offer to fly you around in my personal balloon looking for some patches, but I only let friends and family in my balloon.</line>
+    <line>Alright, how's about we chat a bit and get to be friends? Then I'll take you up in my balloon.</line>
+  </scene>
+
+  <!-- Interview -->
+  
+  <scene name="playerInterviewQuestionOne">
+    <line>I'll ask you some questions first.</line>
+    <line>
+      Did you come from The High Plateau or Across the Gusty Sea?
+      <option goto="playerInterviewQuestionOne-TheHighPlateau">The High Plateau</option>
+      <option goto="playerInterviewQuestionOne-AcrossTheGustySea">Across the Gusty Sea</option>
+      <option goto="playerInterviewQuestionOne-Neither">Neither</option>
+    </line>
+  </scene>
+
+  <scene name="playerInterviewQuestionOne-TheHighPlateau" goto="playerInterviewQuestionTwo">
+    <setGameVar name="player_came_from" value="on The High Plateau" />
+    <line>I thought so. You have a certain quality; like you might have had a butterfly collection as a youngster.</line>
+  </scene>
+  
+  <scene name="playerInterviewQuestionOne-AcrossTheGustySea" goto="playerInterviewQuestionTwo">
+    <setGameVar name="player_came_from" value="Across the Gusty Sea" />    
+    <line>Yeah I figured. You've got a smell of salt water about you. Not that I'm complaining; it's kinda romantic -- like being adrift; a tired seagull who rests on a bit of flotsam to clean its feathers.</line>
+  </scene>
+  
+  <scene name="playerInterviewQuestionOne-Neither" goto="playerInterviewQuestionTwo">
+    <setGameVar name="player_came_from" value="out wherever you came from" />    
+    <line>Maybe you don't like to talk about where you come from; I get that. Always facing forward, never thinking back.</line>
+  </scene>
+
+  <scene name="playerInterviewQuestionTwo">
+    <line>Now let's see, how about some more getting-to-know-you...</line>
+    <line>
+      What's your family like?
+      <option goto="playerInterviewQuestionTwo-TwelveBrothers">Twelve brothers, all accountants</option>
+      <option goto="playerInterviewQuestionTwo-OneSister">One sister, an astronomer</option>
+      <option goto="playerInterviewQuestionTwo-JustMe">It's just me</option>
+    </line>
+  </scene>
+
+  <scene name="playerInterviewQuestionTwo-TwelveBrothers" goto="playerInterviewQuestionThree">
+    <line>It's good to have family to call on in times of financial disarray, or so I'd think. They sound like dedicated men, I like them already.</line>
+  </scene>
+  
+  <scene name="playerInterviewQuestionTwo-OneSister" goto="playerInterviewQuestionThree">
+    <line>An astronomer; a star-gazer! I can relate... to the star-gazing part, I mean. If you're going to spend every night of the week looking at stars, why not make a life of it? She sounds like a pragmatic lady, I like her already.</line>
+  </scene>
+  
+  <scene name="playerInterviewQuestionTwo-JustMe" goto="playerInterviewQuestionThree">
+    <line>What they call a lone wolf. But a wolf is a pack animal. You're more like a wild owl, just sitting on a tree branch watching it all happen; all focus. And then you go for it.</line>
+  </scene>
+
+  <scene name="playerInterviewQuestionThree">
+    <line>Alright, I'm getting to know you -- I'd just about be proud to call you my friend. But one more question, and it's a big one.</line>
+    <line>
+      What should I call you, friend?
+      <option goto="playerInterviewQuestionThree-K">Call me "K."</option>
+      <option goto="playerInterviewQuestionThree-X">Call me "X."</option>
+      <option goto="playerInterviewQuestionThree-Q">Call me "Q."</option>
+    </line>
+  </scene>
+
+  <scene name="playerInterviewQuestionThree-K" goto="silasInterview">
+    <setGameVar name="player_name" value="K." />
+    <line>Pleased to meet you, K. I knew a K. once; a hairdresser. Kept a house full of plants and cats, like a jungle in miniature.</line>
+    <line>Well, let's see, friendships go both ways don't they? Why don't you throw a few at me.</line>    
+  </scene>
+
+  <scene name="playerInterviewQuestionThree-X" goto="silasInterview">
+    <setGameVar name="player_name" value="X." />    
+    <line>Pleased to meet you, X. I read a book by a sociologist named X. Very thorough, from what I could tell.</line>
+    <line>Well, let's see, friendships go both ways don't they? Why don't you throw a few at me.</line>    
+  </scene>
+
+  <scene name="playerInterviewQuestionThree-Q" goto="silasInterview">
+    <setGameVar name="player_name" value="Q." />    
+    <line>Pleased to meet you, Q. I used to buy worms from a shopkeep named Q. But money is tight now, so I'm out here myself.</line>
+    <line>Well, let's see, friendships go both ways don't they? Why don't you throw a few at me.</line>    
+  </scene>
+
+  <scene name="silasInterview">
+    <line>
+      Don't hold back now, you just ask me any old thing you need to know.
+      <option goto="silasInterviewQuestionOne">Where did you come from?</option>
+      <option goto="silasInterviewQuestionTwo">What is your family like?</option>
+      <option goto="silasInterviewQuestionThree">What should I call you?</option>
+      <option goto="silasInterviewDone">That's all I need to know</option>
+    </line>
+  </scene>
+
+  <scene name="silasInterviewQuestionOne" goto="silasInterview">
+    <line>I was born out here in The Dark Valley but my parents came from The Balloon Archipelago. They left just before the real trouble started. I've never even seen The Balloon Archipelago, but I still feel like I miss it. Too late now, though... I reckon...</line>
+  </scene>
+  
+  <scene name="silasInterviewQuestionTwo" goto="silasInterview">
+    <line>I've got a brother named R., he's a clerk at The Old Institution. We don't talk much. My ma is named M., she's a forest pathologist doing field research at the Oak Settlement. My pa is named A., he's a wanderer.</line>
+  </scene>
+
+  <scene name="silasInterviewQuestionThree" goto="silasInterview">
+    <line>Call me Silas. What a mouthful, I know. It's an old name from The Balloon Archipelago, I guess. It's a lot to carry and too long for some folks to remember.</line>
+  </scene>
+
+  <scene name="silasInterviewDone">
+    <setGameVar name="met_silas" value="true" />
+    
+    <line>Pleasure getting to know you, $[player_name].</line>
+    <line>
+      Well, ready to head up in my balloon and start looking for those patches?
+      <option goto="valleyDestinations">Yes</option>
+      <option goto="silasInterviewDoneNotReadyToFly">No</option>
+    </line>
+  </scene>
+
+  <scene name="silasInterviewDoneNotReadyToFly">
+    <line>Sure thing; just come back whenever you're ready.</line>
+  </scene>
+
+  <!-- Acorns from M -->
+  <scene name="acornDelivery" goto="checkPatchCount">
+    <setGameVar name="delivered_acorns" value="true" />
+    <setGameVar name="number_of_balloon_patches" value="+1" />    
+    <line>Seven acorns! These must be from mother. How thoughtful! Well, $[player_name], it seems we will be eating acorn pie in the foreseeable future!</line>
+    <line>The handkerchief they're wrapped in has a good, strong weave to it, $[player_name]. I'm sure we'll be able to use it to patch that balloon.</line>
+  </scene>
+
+  <!-- Map from A -->
+  <scene name="tellSilasAboutMap">
+    <line>
+      Oh, you talked to my pa?
+      <option goto="silasFatherTalked">Yes.</option>
+      <option goto="silasFatherVision">He came to me in a vision.</option>      
+    </line>
+  </scene>
+
+  <scene name="silasFatherVision" goto="silasFatherTalked">
+    <line>Huh. Well, I guess that sounds like something he'd do, more or less.</line>
+  </scene>
+
+  <scene name="silasFatherTalked" goto="checkPatchCount">
+    <setGameVar name="discovered_map" value="true" />
+    <setGameVar name="number_of_balloon_patches" value="+1" />
+    
+    <line>Oh, hang on now. Did he spin you a yarn about that old map? Yeah, alright. He's been really pushing me on that map. It's just an old bit of cloth with some scribbles on it in the shape of the Balloon Archipelago, $[player_name].</line>
+    <line>I'm not really interested in treasure hunting though. Not really my thing. Hey, I bet we could use that old cloth map to patch up the ballon, $[player_name]! Who's gonna miss it?</line>
+  </scene>
+
+  <!-- Got all patches -->
+  <scene name="gotAllPatches">
+    <line>
+      Say, $[player_name], we've got all 6 patches we need to fix up that balloon.
+    </line>
+    <line>
+      Whaddya say, ready to head back to the Dark Valley? Or do you have more to do?
+      <option goto="flyToEndGameValley">Ok, let's go back and fix that balloon up.</option>
+      <option goto="root">I've got a few more things to do first.</option>      
+    </line>
+  </scene>
+
+  <scene name="flyToEndGameValley" flyTo="EndGameValley">
+    <line>Ok, then. I'll warm up the sewing machine once we're up in the air.</line>
+  </scene>
+
+  <!-- End game -->
+  <scene name="endGame">
+    <line>That balloon looks pretty fit to fly, $[player_name]. I think we did a fine job. You're pretty handy with that thread.</line>
+    <line>So ... guess that's the situation ...</line>
+    <line>
+      Say, I've been wondering a few things, $[player_name]. Mind if I ask you a few questions?
+      <option goto="endGameInterview_1">Sure, Silas, go ahead.</option>
+      <option goto="endGameLastChoice">I'd rather not.</option>
+    </line>
+  </scene>
+
+  <scene name="endGameInterview_1">
+    <line>
+      Did you meet anyone you really liked out here, $[player_name]?
+      <option goto="endGameInterview_1_children">I had fun with the children at the Oak Settlement.</option>
+      <option goto="endGameInterview_1_n">I learned a lot from N. at the Three-Spire Settlement.</option>
+      <option goto="endGameInterview_1_f">I'm glad I got to know F., the old man at the Archives.</option>
+    </line>
+  </scene>
+
+  <scene name="endGameInterview_1_children" goto="endGameInterview_2">
+    <line>Yeah, I thought so. Sometimes it's easier to talk to children than grown-ups. We all like jokes.</line>
+  </scene>
+  
+  <scene name="endGameInterview_1_n" goto="endGameInterview_2">
+    <line>Oh, it's powerful stuff alright. Good of you to keep an open mind.</line>
+  </scene>
+  
+  <scene name="endGameInterview_1_f" goto="endGameInterview_2">
+    <line>That's a hard-earned friendship, $[player_name], and that's gotta count for something.</line>
+  </scene>
+
+  <scene name="endGameInterview_2">
+    <line>
+      So what'd you think about my folks?
+      <option goto="endGameInterview_2_selfreliant">You seem to be pretty self-reliant.</option>
+      <option goto="endGameInterview_2_lonely">You seem lonely.</option>
+    </line>
+  </scene>
+
+  <scene name="endGameInterview_2_selfreliant" goto="endGameLastChoice">
+    <line>Yeah we do alright up here. It's hard keep connected, you know; we're busy just keeping it going. Can't help where the winds carry you.</line>
+  </scene>
+  
+  <scene name="endGameInterview_2_lonely" goto="endGameLastChoice">
+    <line>Pa's on the moon, Ma's in the woods, and R.'s in the archives filing poetry. Yeah, it does sound kinda lonely when you put it like that. But hey, I know I'm in good company.</line>
+  </scene>
+
+  <scene name="endGameLastChoice">
+    <line>
+      Alright. Well, where to now, $[player_name]?<option goto="endGameLastChoice_home">I'm heading home. You can come with me, if you want.</option>
+      <option goto="endGameLastChoice_wind">Silas, let's just unhitch these balloons and follow the wind.</option>
+      <option goto="endGameLastChoice_stay">I'll stay here with you.</option>
+      <option goto="endGameLastChoice_archipelago">Let's go to the Balloon Archipelago.</option>
+    </line>
+  </scene>
+
+  <scene name="endGameLastChoice_home" meditateTo="GameEndingCredits">
+    <line>I've always wanted to see what it's like $[player_came_from]. Let's go!</line>
+  </scene>
+  
+  <scene name="endGameLastChoice_wind" meditateTo="GameEndingCredits">
+    <line>I like the sound of that, $[player_name]. Let's see where we end up.</line>
+  </scene>
+  
+  <scene name="endGameLastChoice_stay" meditateTo="GameEndingCredits">
+    <line>Sure, $[player_name]. Let's go up in these balloons and scout out a homestead. You can help me find some good worms and I'll teach you how to fish like an islander.</line>
+  </scene>
+  
+  <scene name="endGameLastChoice_archipelago" meditateTo="GameEndingCredits">
+    <line>We could use my pa's map to look for that treasure. Well, it's a dangerous proposition, $[player_name]. But you're about the only one I'd be likely to take it on with. Sure, let's give it a go.</line>
+  </scene>
+  
+</conversation>

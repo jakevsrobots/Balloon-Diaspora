@@ -1,0 +1,90 @@
+<conversation>
+  <scene name="init">
+    <goto sceneName="intro" condition="!met_b" />    
+    <goto sceneName="root" />
+  </scene>
+
+  <!-- Intro -->
+  <scene name="intro" goto="root">
+    <setGameVar name="met_b" value="true" />
+
+    <line>Hello. Did you land in that balloon? Nice looking thing.</line>
+    <line>Wish I had a balloon. Oh, I'd probably just ruin it. I suppose they know how to do things properly $[player_came_from].</line>
+  </scene>
+
+  <!-- Root -->
+  <scene name="root">
+    <line>
+      Sorry I'm not more fun to talk to, $[player_name].
+      <option goto="aboutThreeSpireSettlement">What is this place?</option>
+      <option goto="whatAreYouDoing">What are you doing?</option>
+      <option goto="joke" condition="got_joke_quest&!joke_quest_completed" hideIfNotAvailable="true">Do you know any good jokes?</option>
+      <option goto="doYouHaveAnyCloth" condition="!accepted_delivery_mission" hideIfNotAvailable="true">Do you have any spare bits of cloth?</option>
+      <option goto="completeDeliveryMission" condition="accepted_delivery_mission&gave_letter_to_worker&!completed_delivery_mission" hideIfNotAvailable="true">I found someone to carry your message.</option>
+      <option goto="goodbye">Goodbye</option>      
+    </line>
+  </scene>
+
+  <!-- About -->
+  <scene name="aboutThreeSpireSettlement" goto="root">
+    <line>This is the current home of the Three-Spire Sect. I'm doing my best to fit in, but it's not easy. Everyone here is so focused; and I'm so distracted ...</line>
+  </scene>
+
+  <scene name="whatAreYouDoing" goto="root">
+    <setGameVar name="learned_about_f_gulls_hunting" value="true" />    
+
+    <line>Oh, I'm just hunting seagulls. I'm not very good at it, I'm afraid. Some of the older folks are much better.</line>
+  </scene>
+
+  <!-- Cloth -->
+  <scene name="doYouHaveAnyCloth" goto="root">
+    <line>I guess I do have a small scrap I've saved from home. But it's all I have left to remember him ... </line>
+    <line>
+      Oh, $[player_name], I don't mean to dump my problems on you.
+      <option goto="problemDetails">What's wrong? Maybe I can help.</option>
+      <option goto="root">Just take a deep breath and relax.</option>
+    </line>
+  </scene>
+
+  <scene name="problemDetails">
+    <line>Well, $[player_name], when I lived in the Balloon Archipelago I had a dear friend named Z. We spent all our time together. To be honest, I think I was in love with him.</line>
+    <line>But when the trouble started, I had to leave so quickly! And I was so scared. I left my Z. behind, a thousand miles away.</line>
+    <line>I wound up here, and joined the Three-Spire Sect hoping it would keep my mind occupied and maybe even soothe my broken heart. But it's no good.</line>
+    <line>Now my oaths to the Sect keep me here, and I can't even contact Z. to tell him where to find me. My heart sinks lower every day; before long, it'll be at the bottom of the sea.</line>
+    <line>If you could find a traveler or a merchant to carry a letter to Z., I could tell him where I am and how I miss him. At last my spirit could be mended!</line>
+    <line>
+      Oh, $[player_name], will you help me find a way to deliver a message to my beloved Z.?
+      <option goto="acceptDeliveryMission">Yes, I think I can find someone.</option>
+      <option goto="rejectDeliveryMission">I'm a bit busy right now, B., I'm sorry.</option>      
+    </line>
+  </scene>
+
+  <scene name="rejectDeliveryMission" goto="root">
+    <line>I see. That's ok, $[player_name], thanks for listening to me pour my heart out anyway.</line>
+  </scene>
+
+  <scene name="acceptDeliveryMission" goto="root">
+    <setGameVar name="accepted_delivery_mission" value="true" />
+    
+    <line>Oh, thank you, $[player_name]! Here is the letter. If you can find a way to deliver it, I'll happily give you this bit of cloth I've been clinging to.</line>
+  </scene>
+
+  <scene name="completeDeliveryMission" goto="root">
+    <setGameVar name="completed_delivery_mission" value="true" />
+    <setGameVar name="number_of_balloon_patches" value="+1" />    
+
+    <line>An ice delivery worker! What a great idea. They pass over the Balloon Archipelago often, I'm sure.</line>
+    <line>$[player_name], I can only begin to repay you. Here is the scrap of cloth for your balloon. I hope it carries you to happiness.</line>
+  </scene>
+
+  <!-- Joke -->
+  <scene name="joke" goto="root">
+    <setGameVar name="learned_joke_3" value="true" />
+    <line>Oh, jokes? Hm. My friend Z. used to tell a wonderful joke. I think it was something about seagulls ... seagulls turning into fish. Something funny and clever like that; he's very clever.</line>
+  </scene>
+
+  <!-- Goodbye -->
+  <scene name="goodbye">
+    <line>Bye now.</line>
+  </scene>
+</conversation>

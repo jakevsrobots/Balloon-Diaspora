@@ -1,0 +1,72 @@
+<conversation>
+  <scene name="init">
+    <goto condition="!met_y" sceneName="intro" />
+    <goto sceneName="root" />
+  </scene>
+
+  <!-- Intro -->
+  <scene name="intro" goto="interviewQuestion1">
+    <setGameVar name="met_y" value="true" />
+    <line>Hello! I saw your balloon touch down just now. Glad to have you here. My name is Y.</line>
+    <line>I am busy doing research: examining and cataloging the labels on ice cube shipments out of the Ice Factory Settlement.</line>
+  </scene>
+
+  <scene name="interviewQuestion1">
+    <line>
+      I'm sure none of these shipments are delivered $[player_came_from]. Tell me, where do you get your ice?
+      <option goto="interviewQuestion2">We make our own ice.</option>
+      <option goto="interviewQuestion2">Actually, ice is quite hard to come by.</option>
+    </line>
+  </scene>
+
+  <scene name="interviewQuestion2">
+    <line>
+      Yes, well, that's economics for you. One group might be making their own ice while another just across the sea or mountains might be sipping warm lemonade.
+    </line>
+    <line>
+      This industry is marvelous though, isn't it?
+      <option goto="endInterview">It's quite impressive.</option>
+      <option goto="endInterview">It's a bit oppressive.</option>
+    </line>
+  </scene>
+
+  <scene name="endInterview" goto="root">
+    <line>Like a solemn monument of metal and stone, hewn from the mountain itself, belching smoke from the innards of the earth. It makes my knees tremble.</line>
+    <line>But I'm not here at the Ice Factory Settlement to plumb the bowels of industry, $[player_name]. I'm here to chart the arteries of commerce!</line>
+  </scene>
+
+  <!-- Root -->
+  <scene name="root">
+    <line>
+      So, $[player_name], what's your business?
+      <option goto="aboutJob">What do you do here?</option>
+      <option goto="aboutIceFactorySettlement">What can you tell me about this place?</option>
+      <option goto="aboutStickers">What is that you're holding?</option>
+      <option goto="goodbye">Goodbye</option>
+    </line>
+  </scene>
+
+  <!-- About job -->
+  <scene name="aboutJob" goto="root">
+    <line>I am a freelance archivist, on a field consultancy with the Old Institution. My specialty is shipping records. I am busy now researching the shipping stickers used in the ice trade.</line>
+  </scene>
+
+  <!-- About Ice Factory Settlement -->
+  <scene name="aboutIceFactorySettlement" goto="root">
+    <line>The Ice Factory Settlement is a crucial node in the ice trade. Fresh water is brought here by balloon from the Deep Lake Settlement, then by some inscrutable industrial process transformed into large blocks of ice. The ice is then taken by balloon to one of several destinations.</line>
+  </scene>
+
+  <scene name="aboutStickers" goto="root">
+    <setGameVar name="got_report_from_y" value="true" />
+    <line>This is a shipping sticker for an ice shipment. They're made with a special adhesive -- unique to this settlement, I believe -- which allows them to stick to ice or even water. But I'm not a chemist; my interest in these stickers is the carefully encoded markings on the side which seem to contain shipping information.</line>
+    <line>See this? A line. And next to that line: a thinner line. But then a thicker line next to that! What does it mean? Is it decorative or informational? I am working on a theory...</line>
+    <line>I believe that the width of each line corresponds with a musical note, and when the trained eye sweeps across them all in sequence it stirs in the trained throat a melody!</line>
+    <line>Of course, these melodies correspond to local folksongs. And that is how the balloon pilots know where to deliver the ice. For example, if the melody is "Lift These Chains," the pilot knows that the ice cube goes to an island in the Ballon Archipelago.</line>
+  </scene>
+
+  <!-- goodbye -->
+  <scene name="goodbye">
+    <line>Be seeing you.</line>
+  </scene>
+  
+</conversation>

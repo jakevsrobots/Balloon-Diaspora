@@ -1,0 +1,64 @@
+<gameVariables>
+  <!-- core -->
+  <variable name="travel_method" type="string" default="init" />
+  <variable name="current_location" type="string" default="current location not set" />
+  <variable name="next_location" type="string" default="next location not set" />
+  <variable name="player_name" type="string" default="name not set" />
+  <variable name="number_of_balloon_patches" type="integer" default="0" />
+  <variable name="player_came_from" type="string" default="homeland not set" />
+  <variable name="game_in_progress" type="boolean" default="false" />
+  
+  <!-- the dark valley -->
+  <variable name="met_silas" type="boolean" default="false" />
+
+  <!-- the archives of the old institution -->
+  <variable name="met_r" type="boolean" default="false" />  
+  <variable name="met_f" type="boolean" default="false" />
+  <variable name="heard_about_f" type="boolean" default="false" />
+  <variable name="got_blanket_from_f" type="boolean" default="false" />    
+  <variable name="learned_about_f_gulls_hunting" type="boolean" default="false" />
+  <variable name="learned_about_gull_dish" type="boolean" default="false" />  
+  <variable name="f_likes_player" type="boolean" default="false" />
+  <variable name="accepted_archivist_mission" type="boolean" default="false" />
+  <variable name="completed_archivist_mission" type="boolean" default="false" />
+
+  <variable name="got_report_from_g" type="boolean" default="false" />
+  <variable name="report_from_g_delivered" type="boolean" default="false" />  
+  <variable name="got_report_from_t" type="boolean" default="false" />
+  <variable name="report_from_t_delivered" type="boolean" default="false" />    
+  <variable name="got_report_from_y" type="boolean" default="false" />
+  <variable name="report_from_y_delivered" type="boolean" default="false" />    
+
+  <!-- the oak settlement -->
+  <variable name="met_m" type="boolean" default="false" />  
+  <variable name="met_g" type="boolean" default="false" />
+  <variable name="got_acorns_from_m" type="boolean" default="false" />
+  <variable name="delivered_acorns" type="boolean" default="false" />
+  <variable name="met_children" type="boolean" default="false" />
+  
+  <variable name="got_joke_quest" type="boolean" default="false" />
+  <variable name="joke_quest_completed" type="boolean" default="false" />  
+  <variable name="learned_joke_1" type="boolean" default="false" />
+  <variable name="learned_joke_2" type="boolean" default="false" />
+  <variable name="learned_joke_3" type="boolean" default="false" />  
+  
+  <!-- the three-spire settlement -->
+  <variable name="met_n" type="boolean" default="false" />
+  <variable name="passed_n_test" type="boolean" default="false" />
+  <variable name="learned_number_of_sacred_islands" type="boolean" default="false" />
+  <variable name="met_t" type="boolean" default="false" />
+  <variable name="met_b" type="boolean" default="false" />
+  <variable name="accepted_delivery_mission" type="boolean" default="false" />
+  <variable name="gave_letter_to_worker" type="boolean" default="false" />
+  <variable name="completed_delivery_mission" type="boolean" default="false" />    
+  
+  <!-- the moon -->
+  <variable name="met_a" type="boolean" default="false" />
+  <variable name="learned_about_hidden_map" type="boolean" default="false" />
+  <variable name="discovered_map" type="boolean" default="false" />
+
+  <!-- the ice factory settlement -->
+  <variable name="met_y" type="boolean" default="false" />
+  <variable name="met_p" type="boolean" default="false" />  
+  
+</gameVariables>

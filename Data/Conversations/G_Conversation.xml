@@ -1,0 +1,74 @@
+<conversation>
+  <scene name="init">
+    <goto condition="!met_g" sceneName="intro" />
+    <goto sceneName="root" />
+  </scene>
+
+  <!-- Intro -->
+  <scene name="intro" goto="interviewQuestion1">
+    <setGameVar name="met_g" value="true" />
+    <line>Greetings! My name is G., and you -- well, I saw you land in that marvelous balloon. An original Balloon Archipelago berry dye job, isn't it? Quite striking against these ashen, snowy woods.</line>
+    <line>I haven't seen you here before; very few travellers come this way. The Oak Settlement is quiet even in the most dynamic of times -- muffled by this relentless snowfall.</line>
+  </scene>
+
+  <scene name="interviewQuestion1">
+    <line>
+      I wonder, do they have snow like this $[player_came_from]?
+      <option goto="interviewQuestion2">It's white and cold, if that's what you mean.</option>
+      <option goto="interviewQuestion2">I've never seen snow before.</option>
+      <option goto="interviewQuestion2">I can't remember.</option>
+    </line>
+  </scene>
+
+  <scene name="interviewQuestion2">
+    <line>
+      What about these trees, though? Hard and bitter, straining slightly under the icy pressure but never giving way. We build all kinds of things from this material.
+      <option goto="endInterview">Not like this.</option>
+      <option goto="endInterview">These trees are fairly common.</option>      
+    </line>
+  </scene>
+
+  <scene name="endInterview" goto="root">
+    <line>Ah, I see. Interesting to hear about weather and vegetation $[player_came_from]. I was born in the Balloon Archipelago but I've only ever been as far as here.</line>
+  </scene>
+
+  <!-- root -->
+  <scene name="root">
+    <line>
+      Well, $[player_name]. Enjoying the snow?
+      <option goto="aboutJob">What do you do here?</option>
+      <option goto="aboutOakSettlement">What can you tell me about this place?</option>
+      <option goto="aboutSculpture">What is that you're holding?</option>
+      <option goto="goodbye">Goodbye</option>
+    </line>
+  </scene>
+
+  <!-- About job -->
+  <scene name="aboutJob" goto="root">
+    <line>I am an apprentice field archivist of the Old Institution! This is my second year in the field. In my first year, I collected graphite rubbings of cave markings in the Dark Valley.</line>
+    <line>This assignment is much more interesting!</line>
+    <line>I am collecting local wood sculptures for the Archives.</line>
+  </scene>
+
+  <!-- About Oak Settlement -->
+  <scene name="aboutOakSettlement" goto="root">
+    <line>Beautiful, is it not? It reminds me of the hills in the northern part of the Balloon Archipelago. Gently lofted, grassy mounds capped with white ... that was before the trouble, of course. Now, I think the northern islands are mostly sand.</line>
+    <line>These oaks have come to be very important for our people. We use them for most everything structural, from buildings to sculptures. That is what I am collecting now: wooden sculptures.</line>
+  </scene>
+
+  <!-- About sculptures -->
+  <scene name="aboutSculpture" goto="root">
+    <setGameVar name="got_report_from_g" value="true" />
+    
+    <line>Yes! I am collecting these wooden sculptures for the Archives. Very lovely. So detailed.</line>
+    <line>You see, they are carved with a long handle, and protrusions of various lengths jutting out at many angles. Then they are used in a community ritual; something like a game, but also like a performance.</line>
+    <line>The community sits by a lantern, near a blank wall. They take turns holding the sculpture in front of the lantern, twisting it to different angles to cast shadows. Each person tries to produce a series of images in shadow on the wall, and together they tell a story.</line>
+    <line>I am collecting samples of these sculptures so that my advisor can compare them for his new book, "Inflatable Arts: Crafts and Tradition among Non-Resident Citizens of the Balloon Archipelago."</line>
+  </scene>
+
+  <!-- bye -->
+  <scene name="goodbye">
+    <line>Ok, talk to you soon $[player_name]!</line>
+  </scene>
+  
+</conversation>

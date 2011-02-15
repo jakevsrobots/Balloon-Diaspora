@@ -1,0 +1,8 @@
+<conversation>
+  <scene name="intro">
+    <line>Hi there.</line>
+  </scene>
+  <scene name="testScene">
+    <line>This is like a test..</line>
+  </scene>
+</conversation>

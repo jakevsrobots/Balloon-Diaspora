@@ -1,0 +1,72 @@
+<conversation>
+  <scene name="init">
+    <goto condition="!met_p" sceneName="intro" />
+    <goto sceneName="root" />    
+  </scene>
+
+  <!-- Intro -->
+  <scene name="intro" goto="root">
+    <setGameVar name="met_p" value="true" />
+    <line>Hi there. Nice looking balloon you came down in. Guess you're not here to pick up a shipment.</line>
+    <line>All our balloons are out running routes just now; making deliveries, you know. Hope some of them get back before all this ice melts, or there'll be hell to pay.</line>
+  </scene>
+  
+  <!-- Root -->
+  <scene name="root">
+    <line>
+      So what can I do for you, $[player_name]?
+      <option goto="aboutJob">What do you do here?</option>
+      <option goto="aboutIceFactorySettlement">What can you tell me about this place?</option>
+      <option goto="joke" condition="got_joke_quest&!joke_quest_completed" hideIfNotAvailable="true">Do you know any good jokes?</option>
+      <option goto="deliveryRequest" condition="accepted_delivery_mission&!gave_letter_to_worker" hideIfNotAvailable="true">Could you deliver a letter to the Ballon Archipelago?</option>
+      <option goto="goodbye">Goodbye</option>
+    </line>
+  </scene>
+
+
+  <!-- About -->
+  <scene name="aboutJob" goto="root">
+    <line>I'm a dispatcher, and I operate the conveyor belt. When balloon pilots land I tell them how much ice to load up and where to take it.</line>
+    <line>
+      I also do some piloting, on the weekends. But I don't run factory business exactly ...
+      <option goto="moreInformationAboutRuns">What kind of business do you run on the weekends?</option>
+      <option goto="declineInformationAboutRuns">Sounds like the less I know, the better.</option>
+    </line>
+  </scene>
+
+  <scene name="moreInformationAboutRuns" goto="root">
+    <line>Well, I still have family back in the Balloon Archipelago. In the western islands, there's not much fresh water. So I take a few ice blocks out there and just circle for a bit.</line>
+    <line>After a while, they start to melt. Then it's like rain on my family's land. Things are rough back there. I'd never go back, but I've gotta help them out somehow.</line>
+  </scene>
+  
+  <scene name="declineInformationAboutRuns" goto="root">
+    <line>Yeah, could be.</line>
+  </scene>
+  
+  <scene name="aboutIceFactorySettlement" goto="root">
+    <setGameVar name="learned_about_gull_dish" value="true" />
+    
+    <line>This is the Ice Factory Settlement. This is where all your ice comes from, $[player_name]. Well, not your ice, I guess. Not sure we really do deliveries $[player_came_from].</line>
+    <line>I've been working here a number of years. Now I'm on dispatch. It's pretty okay. I go out on the weekends.</line>
+    <line>Sometimes I miss my home, the Balloon Archipelago. Mostly I miss my family and the food. Ain't easy to find a good seagull salmon casserole up here, I tell you. That's about the tastiest thing you'll ever ... Well, I don't guess they have seagull salmon casserole $[player_came_from].</line>
+  </scene>
+
+  <!-- Joke -->
+  <scene name="joke" goto="root">
+    <setGameVar name="learned_joke_1" value="true" />
+    <line>Huh, I guess I've heard some jokes, out making deliveries. Let's see ...</line>
+    <line>Well, I don't remember any of the good parts. But they always start with a balloon landing somewhere, like on a new island. Then something funny happens.</line>
+  </scene>
+
+  <!-- Delivery -->
+  <scene name="deliveryRequest" goto="root">
+    <setGameVar name="gave_letter_to_worker" value="true" />
+    <line>Oh, a letter? Sure, I pass over the Balloon Archipelago on the weekends. I'll drop it off the side of the ballonn & I'm sure someone will take it from there.</line>
+  </scene>
+  
+  <!-- Goodbye -->
+  <scene name="goodbye">
+    <line>Sure, see you around.</line>
+  </scene>
+  
+</conversation>

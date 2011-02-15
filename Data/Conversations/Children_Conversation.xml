@@ -1,0 +1,92 @@
+<conversation>
+  <scene name="init">
+    <goto condition="!met_children" sceneName="intro" />
+    <goto sceneName="root" />
+  </scene>
+
+  <!-- Intro -->
+  <scene name="intro">
+    <setGameVar name="met_children" value="true" />
+    <line>
+      Ha! Who are you?
+      <option goto="introPlayerName">K.</option>
+      <option goto="introPlayerName">X.</option>
+      <option goto="introPlayerName">Q.</option>
+    </line>
+  </scene>
+
+  <scene name="introPlayerName" goto="root">
+    <line>That's a weird name. We will call you ...</line>
+    <line>Mary Ann!</line>
+  </scene>
+  
+  <!-- Root -->
+  <scene name="root">
+    <line>
+      What are you doing, Mary Ann?
+      <option goto="aboutOakSettlement">What is this place?</option>
+      <option goto="whatDoYouDo">What are you doing?</option>
+      <option goto="joke_1" condition="got_joke_quest&!joke_quest_completed" hideIfNotAvailable="true">I have a joke to tell you.</option>
+      <option goto="doYouHaveAnyCloth" condition="!got_joke_quest" hideIfNotAvailable="true">Do you have any spare bits of cloth?</option>
+      <option goto="goodbye">Goodbye.</option>
+    </line>
+  </scene>
+
+  <!-- About -->
+  <scene name="aboutOakSettlement" goto="root">
+    <line>This is the Oak Settlement. It is boring but the trees are big.</line>
+  </scene>
+
+  <scene name="whatDoYouDo" goto="root">
+    <line>We like to play in the trees. We have claimed this tree for the Balloon Archipelago by bringing our flag to the top!</line>
+  </scene>
+
+  <!-- Cloth -->
+  <scene name="doYouHaveAnyCloth" goto="root">
+    <setGameVar name="got_joke_quest" value="true" />
+    <line>Hmmmmmm ... We have another flag, but you can't have it.</line>
+    <line>Well, ok, you can have it. But you have to tell us a really funny joke!</line>
+  </scene>
+
+  <!-- Joke -->
+  <scene name="joke_1">
+    <line>
+      Ok! What's your joke?
+      <option goto="joke_2" condition="learned_joke_1">A balloon landed on an island.</option>
+      <option goto="joke_fail">Um ... a bear and a rabbit were in the woods ...</option>
+    </line>
+  </scene>
+
+  <scene name="joke_2">
+    <line>
+      What was the island like?
+      <option goto="joke_3" condition="learned_joke_2">The island was upside-down; the trees were underwater.</option>
+      <option goto="joke_fail">Um ... the rabbit says to the bear ... </option>
+    </line>
+  </scene>
+
+  <scene name="joke_3">
+    <line>
+      So? What happened?!
+      <option goto="joke_success" condition="learned_joke_3">The seagulls turned into fish.</option>
+      <option goto="joke_fail">Um ... the bear grabs the rabbit ...</option>
+    </line>
+  </scene>
+
+  <scene name="joke_fail" goto="root">
+    <line>Mary Ann, your joke is very bad. But you can have another chance if you find a real joke.</line>
+  </scene>
+
+  <scene name="joke_success" goto="root">
+    <setGameVar name="number_of_balloon_patches" value="+1" />
+    <setGameVar name="joke_quest_completed" value="true" />    
+    <line>Mary Ann ... </line>
+    <line>Your joke is very good, but you tell it wrong! That's ok. You can have our extra flag.</line>
+  </scene>
+
+  <!-- Goodbye -->
+  <scene name="goodbye">
+    <line>Goodbye Mary Ann!</line>
+  </scene>
+  
+</conversation>

@@ -1,0 +1,66 @@
+<conversation>
+  <scene name="init">
+    <goto condition="!met_m" sceneName="intro" />
+    <goto sceneName="root" />
+  </scene>
+
+  <!-- Intro -->
+  <scene name="intro">
+    <setGameVar name="met_m" value="true" />
+
+    <line>I saw you come in on that striped balloon. It used to be ours, you know! I am M.; Silas' mother.</line>
+    <line>
+      How are you two getting on?
+      <option goto="introSilasQuestion1">We see eye-to-eye on just about everything.</option>
+      <option goto="introSilasQuestion1">Can't say I really understand him.</option>
+    </line>
+  </scene>
+  
+  <scene name="introSilasQuestion1">
+    <line>I expected as much. Oh, to travel the skies with a companion from ... $[player_came_from]?</line>
+    <line>
+      Well, how is our Silas anyway?
+      <option goto="introSilasQuestion2">Happy as a seagull.</option>      
+      <option goto="introSilasQuestion2">Lonely as a seagull.</option>
+    </line>
+  </scene>
+
+  <scene name="introSilasQuestion2" goto="root">
+    <line>I'm sure he is, with a companion like you.</line>
+  </scene>
+  
+  <!-- Root -->
+  <scene name="root">
+    <line>
+      So, you're here: what now?
+      <option goto="aboutOakSettlement">What is this place?</option>      
+      <option goto="whatDoYouDo">What do you do here?</option>
+      <option goto="doYouHaveAnyCloth" condition="!got_acorns_from_m" hideIfNotAvailable="true">Do you have any spare bits of cloth?</option>
+      <option goto="goodbye">Goodbye.</option>      
+    </line>
+  </scene>
+
+  <!-- About -->
+  <scene name="aboutOakSettlement" goto="root">
+    <line>The Oak Settlement. A curious place. Time seems to pass differently here; it's been snowing for years, I think. Night for years.</line>
+    <line>And these trees! So magnificent. Older than you can imagine. It is good for my research.</line>
+  </scene>
+
+  <scene name="whatDoYouDo" goto="root">
+    <line>I am a forest pathologist. I study trees and their illnesses. The trees here are all so old -- and exposed to constant snow and wind -- they seem to catch more diseases than in any other forest I've studied</line>
+    <line>When we lived in the Balloon Archipelago, I had a laboratory and a small army of graduate students. But at a certain point the Archipelago became a very difficult place to be a scientist.</line>
+    <line>I am happy doing fieldwork. But I miss our lab.</line>
+  </scene>
+  
+  <!-- Goodbye -->
+  <scene name="goodbye">
+    <line>Take care, $[player_name].</line>
+  </scene>
+
+  <!-- Cloth -->
+  <scene name="doYouHaveAnyCloth" goto="root">
+    <setGameVar name="got_acorns_from_m" value="true" />
+    <line>Cloth? Well, I suppose I might have a bit.</line>
+    <line>Here. I've been saving these acorns for my son. I'll wrap them up in a handkerchief, and when you deliver the acorns to our Silas you may keep it.</line>
+  </scene>
+</conversation>

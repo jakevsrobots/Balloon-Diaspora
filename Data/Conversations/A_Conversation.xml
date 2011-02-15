@@ -1,0 +1,46 @@
+<conversation>
+  <scene name="init">
+    <goto condition="!met_a" sceneName="intro" />
+    <goto sceneName="root" />
+  </scene>
+
+  <!-- Intro -->
+  <scene name="intro" goto="root">
+    <setGameVar name="met_a" value="true" />
+    <line>Greetings, traveler from $[player_came_from]!</line>
+    <line>I am A. -- I am wandering the surface of the moon, looking for good places to set up my telescope. From here, I can see nearly everything.</line>
+  </scene>
+
+  <!-- Root -->
+  <scene name="root">
+    <line>
+      $[player_name], it seems you have something on your mind.
+      <option goto="doYouHaveAnyCloth">Do you have any spare bits of cloth?</option>
+      <option goto="howDidYouGetHere">How did you get here?</option>
+      <option goto="aboutSilas">Let's talk about Silas.</option>
+      <option goto="howToGetBack">I think I'd like to leave the moon now.</option>
+    </line>
+  </scene>
+
+  <scene name="howDidYouGetHere" goto="root">
+    <line>I wander just about everywhere, $[player_name]. No, I don't use a balloon. Instead I use a technique I learned from the inhabitants of the Three-Spire Settlement.</line>
+    <line>I focus on a single light source, then slowly close my eyes and set my mind in motion.</line>
+    <line>It's like a hybrid between looking and moving, I suppose. The distances between points of light collapse. There is no difference between a star and a snowflake; or the moon and a lamp post.</line>
+  </scene>
+  
+  <scene name="aboutSilas" goto="root">
+    <setGameVar name="learned_about_hidden_map" value="true" />
+    <line>Silas is my son. He's sort of a homebody, I suppose; he stayed in the Dark Valley even when the rest of us left. I'd be happy to see him take wing. You know, explore the skies!</line>
+    <line>Maybe you could give him a little nudge. There's an old cloth map, hidden in our old family balloon. It's near the back of the basket, stuffed into a cassette recorder labeled "eats tapes, do not throw out."</line>
+    <line>Let's see what that map inspires in him.</line>
+  </scene>
+  
+  <scene name="doYouHaveAnyCloth" goto="root">
+    <line>Cloth is a bit rare up here on the moon.</line>
+  </scene>
+  
+  <scene name="howToGetBack" meditateTo="ThreeSpireSettlement">
+    <line>Easily done, $[player_name]. Just reflect on the light of this lamp post.</line>
+    <line>Now, slowly, close your eyes.</line>
+  </scene>
+</conversation>

@@ -1,0 +1,264 @@
+<conversation>
+  <scene name="init">
+    <goto condition="!met_r" sceneName="intro" />
+    <goto sceneName="root" />    
+  </scene>
+
+  <!-- Intro -->
+  <scene name="intro">
+    <setGameVar name="met_r" value="true" />
+    
+    <line>Well. You rode in on that striped balloon, didn't you? Beautiful specimen. Dyed with the blended juices of nearly every berry on the north-most island of the Balloon Archipelago.</line>
+    <line>The balloon's contour is particular to vessels from that part of the island chain: a large bulge on the top which tapers into a somewhat narrower column, then the basket hung below on steel wires.</line>
+    <line>
+      Yes, I am quite well versed in the characteristics of that balloon.
+      <option goto="howDoYouKnowSoMuchAboutTheBalloon">How do you know so much about it?</option>      
+      <option goto="youMustBeR">You must be R.</option>
+    </line>
+  </scene>
+
+  <scene name="howDoYouKnowSoMuchAboutTheBalloon" goto="introAboutSilas">
+    <line>It belongs to my brother, Silas. My name is R.</line>
+  </scene>
+  
+  <scene name="youMustBeR" goto="introAboutSilas">
+    <line>Yes, I am R. I gather that my brother Silas has told you about me.</line>
+  </scene>
+
+  <scene name="introAboutSilas">
+    <line>Silas has more cleverness in stock than he allows himself. Mother and I would very much like to see him find an occupation.</line>
+    <line>
+      What is he doing these days?
+      <option goto="introSilasFishing">Fishing, I think.</option>
+      <option goto="introSilasHelpingWithBalloon">He's helping me find patches for a damaged balloon.</option>
+    </line>
+  </scene>
+
+  <scene name="introSilasFishing" goto="root">
+    <line>Oh, fishing ... and before fishing it was knitting, and aerial kite photography before that. Fishing. Back in the Balloon Archipelago, fishing was a lifelong occupation, not a hobby. The same was true of aerial kite photography.</line>
+  </scene>
+  
+  <scene name="introSilasHelpingWithBalloon" goto="root">
+    <line>Well, at least he is keeping up the craft. Back in the Balloon Archipelago, balloon repair was a lifelong occupation. Balloon cobblers were scorned and respected in equal measure; it was hard, manual labor. But necessary.</line>
+  </scene>
+  
+  <!-- Root -->
+  <scene name="root">
+    <line>
+      So, what can I help you with, $[player_name]?
+      <option goto="doYouHaveAnyCloth" condition="!accepted_archivist_mission" hideIfNotAvailable="true">Do you have any spare bits of cloth?</option>
+      <option goto="whereAreTheArchivists" condition="accepted_archivist_mission&!completed_archivist_mission" hideIfNotAvailable="true">Where are the field archivists again?</option>
+      <option goto="archivistReports" condition="accepted_archivist_mission&!completed_archivist_mission" hideIfNotAvailable="true">I have some information from your field archivists.</option>
+      <option goto="joke" condition="got_joke_quest&!joke_quest_completed" hideIfNotAvailable="true">Do you know any good jokes?</option>
+      <option goto="aboutF" condition="met_f&!f_likes_player&!heard_about_f" hideIfNotAvailable="true">What's with that old guy over there?</option>
+      <option goto="chatWithR">I'd like to know more about your work.</option>
+      <option goto="goodbye">Goodbye.</option>
+    </line>
+  </scene>
+
+  <scene name="doYouHaveAnyCloth">
+    <line>
+      Spare balloon material? I suppose I could dig something up from the collection; some redundant pattern that no-one would miss. But I'm far too busy at the moment.
+      <option goto="introduceArchivistMission">Is there anything I can do?</option>
+      <option goto="root">Nevermind, then.</option>
+    </line>
+  </scene>
+
+  <scene name="introduceArchivistMission" goto="whereAreTheArchivists">
+    <setGameVar name="accepted_archivist_mission" value="true" />
+    <line>In fact, there is something. I am very near to the completion of my latest book, "Inflatable Arts: Crafts and Tradition Among Non-Resident Citizens of the Balloon Archipelago," but I have a few outstanding reports from junior field archivists.</line>
+    <line>If you could venture out and retrieve the reports, I might be able to spare a few moments and dig up a bit of balloon material.</line>
+  </scene>
+
+  <!-- Archivists mission -->
+  <scene name="whereAreTheArchivists" goto="root">
+    <line>There are three field archivists: G., who is collecting sculptures at the Oak Settlement, T., who is collecting scriptures at the Three-Spire Settlement, and Y., who is collecting stickers at the Ice Factory Settlement.</line>
+    <line>Just visit each of them and retrieve their reports. Then I'll see what I can do about your balloon patches.</line>
+  </scene>
+
+  <scene name="archivistReports">
+    <line>
+      Excellent, is it from G. at the Oak Settlement, T. at the Three-Spire Settlement or Y. at the Ice Factory Settlement?
+      <option goto="reportFromG" condition="got_report_from_g" makeInvisibleCondition="report_from_g_delivered">G.</option>
+      <option goto="reportFromT" condition="got_report_from_t" makeInvisibleCondition="report_from_t_delivered">T.</option>
+      <option goto="reportFromY" condition="got_report_from_y" makeInvisibleCondition="report_from_y_delivered">Y.</option>
+      <option goto="root">Nevermind.</option>
+    </line>
+  </scene>
+
+  <!-- About F -->
+  <scene name="aboutF" goto="root">
+    <setGameVar name="heard_about_f" value="true" />
+    <line>Oh, F.? He's a bit suspicous of ... strangers. If you are patient with him, you'll get through eventually.</line>
+  </scene>
+
+  <!-- Archivist task status -->
+  <scene name="checkArchivistStatus">
+    <goto condition="report_from_g_delivered&report_from_t_delivered&report_from_y_delivered"
+          sceneName="completedArchivistProject" />
+    <goto sceneName="root" />
+  </scene>
+  
+  <scene name="completedArchivistProject" goto="root">
+    <setGameVar name="completed_archivist_mission" value="true" />
+    <setGameVar name="number_of_balloon_patches" value="+1" />
+    <line>You've retrieved reports from all three field archivists, thank you very much for your help $[player_name].</line>
+    <line>As promised, here's a patch for your repair project. I found it in the back of an old dress catalog. Perhaps it was once beautiful.</line>
+  </scene>
+  
+  <!-- Chat with R -->
+  <scene name="chatWithR">
+    <line>
+      I am always happy to talk about my work.
+      <option goto="aboutWorkAtTheArchives">What do you do here at the archives?</option>
+      <option goto="aboutTheOldInstitution">Tell me more about The Old Institution</option>
+      <option goto="root">That's all, thanks.</option>      
+    </line>
+  </scene>
+
+  <scene name="aboutWorkAtTheArchives">
+    <line>I am a Junior Clerk here at the Archives of The Old Institution, which means I am 8 years into my Clerkship. In another 7 years, I will be eligible for a promotion into either a supervisory or historiographic position.</line>
+    <line>That is why my writing is so important. I will be required to have published extensively to be considered for the promotion to Associate Historiographer.</line>
+    <line>
+      Have you ever been engaged in serious scholarship, $[player_name]?
+      <option goto="scholarshipQuestionAnswer">I prefer the warmth of conversation.</option>
+      <option goto="scholarshipQuestionAnswer">I prefer the silence of the stars.</option>
+    </line>
+  </scene>
+
+  <scene name="scholarshipQuestionAnswer" goto="chatWithR">
+    <line>That's just as well; it's a demanding process and not everyone is suited for it.</line>
+  </scene>
+
+  <scene name="aboutTheOldInstitution">
+    <line>The Old Institution was founded within the Balloon Archipelago hundreds of years ago, but those buildings have been sacked and razed. Now, the Institution plays a vital role in preserving our way of life.</line>
+    <line>
+      Have you ever attended the call of history, $[player_name]? The exultant clarion of antiquity, sounded by your mother's father's mother's breath, enlisting you in the service of eternity!
+      <option goto="historyQuestionAnswer">I try to keep my eyes on the prize.</option>
+      <option goto="historyQuestionAnswer">I try to keep my eyes on the sky.</option>
+    </line>
+  </scene>
+
+  <scene name="historyQuestionAnswer" goto="chatWithR">
+    <line>Perhaps they do not take history seriously $[player_came_from]. But we do. Some day -- perhaps when you and I are gray or gone -- our children or grandchildren will tie a thousand balloons to this building and lift it back to a small island in the eastern curve of the Balloon Archipelago. Our future will be our past, $[player_name], an unbroken line.</line>
+  </scene>
+
+  <scene name="goodbye">
+    <line>Goodbye.</line>
+  </scene>
+
+  <!-- Report from G. -->
+  <scene name="reportFromG">
+    <line>
+      Excellent. How was the sculpture collection coming along? How do they look?
+      <option goto="reportFromG_1_madeOfWood">They're made of wood.</option>
+      <option goto="reportFromG_1_oddProtrusions">They have protrusions jutting out at odd angles.</option>
+      <option goto="reportFromG_1_small">They're fairly small. They can fit in your hand.</option>
+    </line>
+  </scene>
+
+  <scene name="reportFromG_1_madeOfWood" goto="reportFromG2">
+    <line>Yes, that is quite important; they are made of wood. When refugees from the Balloon Archipelago first arrived at the Oak Settlement, they were able to create a thriving economy by diligently harvesting that natural resource.</line>
+  </scene>
+  
+  <scene name="reportFromG_1_oddProtrusions" goto="reportFromG2">
+    <line>Yes, the carving is so delicate and precise. And yet, it seems so arbitrary! Like the Balloon Archipelago itself: a chain of islands first positioned by tectonic indifference, but now a momentous configuration.</line>
+  </scene>
+  
+  <scene name="reportFromG_1_small" goto="reportFromG2">
+    <line>Yes, they are hand-held. These are not the monumental sculptures of an imperial culture; no, these sculptures are personal and communal, used to share experience. I paraphrase a famous dramatist when I say "In the Balloon Archipelago, there is no art -- everything is made for use."</line>
+  </scene>
+
+  <scene name="reportFromG2">
+    <line>
+      And how are these sculptures used?
+      <option goto="reportFromG_2_shadows">They cast shadows on the wall.</option>
+      <option goto="reportFromG_2_community">Community members take turns posing them.</option>
+      <option goto="reportFromG_2_stories">They're used to tell stories.</option>
+    </line>
+  </scene>
+
+  <scene name="reportFromG_2_shadows" goto="reportFromG_end">
+    <line>Yes, at different angles the sculptures can cast quite different shadows. A translation between the three-dimensional hand-held sculpture and the two-dimensional projection; the personal and the communal ...</line>
+  </scene>
+  
+  <scene name="reportFromG_2_community" goto="reportFromG_end">
+    <line>Yes, these sculptures are owned and used collectively by the community. There is no artist, really. Or perhaps there is no audience.</line>
+  </scene>
+  
+  <scene name="reportFromG_2_stories" goto="reportFromG_end">
+    <line>Yes, this culture will always have stories to tell. These sculptures let us tell them in new ways as we evolve.</line>
+  </scene>
+
+  <scene name="reportFromG_end" goto="checkArchivistStatus">
+    <setGameVar name="report_from_g_delivered" value="true" />
+    <line>Thank you, $[player_name], this report has been most edifying.</line>
+  </scene>
+
+  <!-- Report from T. -->
+  <scene name="reportFromT">
+    <line>
+      Very good. What has T. found in the Three-Spire Settlement?
+      <option goto="reportFromT_1_poems">Some of the poems read like prayer.</option>
+      <option goto="reportFromT_1_prayers">Some of the prayers read like poetry.</option>      
+    </line>
+  </scene>
+
+  <scene name="reportFromT_1_poems" goto="reportFromT_end">
+    <line>Poems that read like prayer. The devotion to art as devotion to truth, or is it a plea for meaning?</line>
+  </scene>
+  
+  <scene name="reportFromT_1_prayers" goto="reportFromT_end">
+    <line>Prayers that read like poetry. A vulgar grasp on the sacred, or is it beauty produced by truth?</line>
+  </scene>
+
+  <scene name="reportFromT_end" goto="checkArchivistStatus">
+    <setGameVar name="report_from_t_delivered" value="true" />    
+    <line>Thank you, $[player_name], it sounds as if we're on the edge of something quite publishable.</line>
+  </scene>
+
+  <!-- Report from Y. -->
+  <scene name="reportFromY">
+    <line>
+      Ok. What has Y. found in the Ice Factory Settlement?
+      <option goto="reportFromY_1_folksongs">The stickers have folk songs written on them.</option>
+      <option goto="reportFromY_1_destination">The stickers have shipping destinations written on them.</option>
+    </line>
+  </scene>
+
+  <scene name="reportFromY_1_folksongs" goto="reportFromY2">
+    <line>Folk songs stuck to the sides of ice cubes. This fits nicely into my chapter on water and music.</line>
+  </scene>
+  
+  <scene name="reportFromY_1_destination" goto="reportFromY2">
+    <line>Shipping destinations literally written on the cargo. This fits nicely into my chapter on nomadic alphabets.</line>
+  </scene>
+
+  <scene name="reportFromY2">
+    <line>
+      So, this writing on the stickers. What alphabet is it?
+      <option goto="reportFromY_2_notation">Some kind of musical notation.</option>
+      <option goto="reportFromY_2_lines">A series of vertical lines.</option>
+    </line>
+  </scene>
+
+  <scene name="reportFromY_2_notation" goto="reportFromY_end">
+    <line>Musical notation, of course! I must add an appendix cataloging musical notation systems of the Balloon Archipelago.</line>
+  </scene>
+  
+  <scene name="reportFromY_2_lines" goto="reportFromY_end">
+    <line>Solid vertical bars, of course! I must add an appendix cataloging alphabetic minimalism in the Balloon Archipelago.</line>
+  </scene>
+
+  <scene name="reportFromY_end" goto="checkArchivistStatus">
+    <setGameVar name="report_from_y_delivered" value="true" />    
+    <line>This is crucial information, $[player_name]; thank you for your help.</line>
+  </scene>
+
+  <!-- Joke -->
+  <scene name="joke" goto="root">
+    <setGameVar name="learned_joke_2" value="true" />
+    <line>Jokes? Well ... In graduate school, I contributed to a paper titled "Exodic Laughter: Jokes and Humor in the Balloon Archipelago."</line>
+    <line>I do not recall any specific jokes, but I do recall that most jokes center on an inversion. Something is always upside-down, inside-out, or otherwise mirrored or flipped.</line>
+  </scene>
+</conversation>
